@@ -14,7 +14,11 @@
   <?php if (have_posts()): ?>
   <?php while (have_posts()) : the_post(); ?>
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('img/post-bg.jpg')">
+    <?php
+    $id = get_post_thumbnail_id(); /* 投稿のｱｲｷｬｯﾁ画像がｾｯﾄされている場合→ｱｲｷｬｯﾁ画像のIDを返すテンプレタグ */
+    $img = wp_get_attachment_image_src($id); /* 添付(ﾒﾃﾞｨｱﾗｲﾌﾞﾗﾘ)された画像ファイルの属性を配列として返すテンプレタグ */
+    ?>
+    <header class="masthead" style="background-image: url('<?php echo $img[0]; ?>')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
@@ -35,6 +39,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
+          <?php the_post_thumbnail(); ?> <!-- アイキャッチ画像を表示させる為のテンプレタグ -->
           <?php the_content(); ?>
 
           </div>
